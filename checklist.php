@@ -19,6 +19,8 @@ $buscarzona = $_GET["buscarzona"];
 $buscaregion = $_GET["buscaregion"];
 $rondax = $_GET["rondax"];
 $us = $_GET["us"];
+//mio
+$buscarxcodigo= $_GET["buscarxcodigo"];
 
 
 if($usuario){
@@ -38,6 +40,7 @@ if($usuario){
       $total_registros = mysqli_num_rows($ni); 
       $total_paginas = ceil($total_registros / $registros);
 }
+
 
 else if($buscarzona){
       $ni = $sel->consultaBuscadorzona($buscarzona); 
@@ -73,6 +76,27 @@ else if($buscaregion){
       $total_registros = mysqli_num_rows($ni); 
       $total_paginas = ceil($total_registros / $registros);
 }
+
+//mio para buscar por codigo
+else if($buscarxcodigo){
+      $ni = $sel->consultaBuscadorcodigo($buscarxcodigo); 
+      $registros = 20;
+      $contador = 1;
+      $pagina = $_GET["pagina"];
+
+      if (!$pagina) { 
+      $inicio = 0; 
+      $pagina = 1; 
+      } else { 
+      $inicio = ($pagina - 1) * $registros; 
+      } 
+
+      $resultados = $sel->consultaBuscadorxcodigo($buscarxcodigo,$inicio,$registros);  
+      $total_registros = mysqli_num_rows($ni); 
+      $total_paginas = ceil($total_registros / $registros);
+}
+
+
 else if($buscar){
  
       $ni = $sel->consultaBuscador($buscar); 
@@ -288,7 +312,9 @@ else{
                     
                     
                <p style="font-weight: bolder;">BUSCAR POR:</p>
-                    <form class="form-inline"  action="checklist.php" method="GET">
+
+        <form class="form-inline"  action="checklist.php" method="GET">
+
         <div class="form-group" style="width: 15%;">
                                      
                                  <select name="rondax" data-placeholder="Your Favorite Types of Bear" class="chosen-select-width" tabindex="10">
@@ -298,7 +324,7 @@ else{
                                     <option value="10" >10</option>                      
                                  </select>
 
-                          </div>
+        </div>
 			 <div class="form-group" style="width: 18%;">
         
          <select name="usuario" data-placeholder="Your Favorite Types of Bear" class="chosen-select-width" tabindex="10">
@@ -342,9 +368,25 @@ else{
                                   <option value="<?php echo $centros["agencia"] ?>" ><?php echo $centros["agencia"] ?></option>
                           <?php } ?>
                                  </select>
-				<input type="submit" value="BUSCAR" class="btn btn-success" style="margin: 0px;padding-left: 22px;padding-right: 30px;font-weight: bolder;">
+			
 	
 			</div>
+
+
+      <!--mio-->
+        <div class="form-group" style="width: 26%;">
+        
+         <select name="buscarxcodigo" data-placeholder="Your Favorite Types of Bear" class="chosen-select-width" tabindex="10">
+                                  <option value="" >Codigo </option>                          
+                                   <?php $cen = $sel->consultaAutocompletexcodigo(); while($centros = $cen->fetch_assoc()){?>                            
+                                  <option value="<?php echo $centros["id_cod"] ?>" ><?php echo $centros["id_cod"] ?></option>
+                          <?php } ?>
+                                 </select>
+       
+      </div>
+
+        <input type="submit" value="BUSCAR" class="btn btn-success" style="margin: 0px;padding-left: 22px;padding-right: 30px;font-weight: bolder;">
+
 		     </form>
 		    
                   </div>
@@ -491,6 +533,9 @@ $fec = substr($mue["fecha"],0,10);
                                   <?php
 					                           if($usuario){
 
+
+
+
                                           if ($total_registros) {
                                              
                                               if (($pagina - 1) > 0) {
@@ -588,6 +633,33 @@ $fec = substr($mue["fecha"],0,10);
                                             }
 
                                       }
+                                      
+                                          else if($buscarxcodigo){
+
+                                          if ($total_registros) {
+                                             
+                                              if (($pagina - 1) > 0) {
+                                                echo "<li ><a href='checklist.php?pagina=".($pagina-1)."&buscarxcodigo=".$buscarxcodigo."&us=".$us."'>< Anterior</a></li>";
+                                                } else {
+                                                echo "<li ><a href='#'>< Anterior</a></li>";
+                                              }
+                                              for ($i = 1; $i <= $total_paginas; $i++) {
+                                                if ($pagina == $i) {
+                                                  echo "<li class='active'><a href='#'>". $pagina ."</a></li>"; 
+                                                } else {
+                                                  echo "<li ><a href='checklist.php?pagina=$i&buscarxcodigo=".$buscarxcodigo."&us=".$us."'>$i</a> </li>"; 
+                                                } 
+                                              }
+                                              if (($pagina + 1)<=$total_paginas) {
+                                                echo "<li ><a href='checklist.php?pagina=".($pagina+1)."&buscarxcodigo=".$buscarx."&us=".$us."'>Siguiente ></a></li>";
+                                              } else {
+                                                echo "<li ><a href='#'>Siguiente ></a></li>";
+                                              }    
+                                            }
+
+                                      }
+                                      
+                                                                            
                                       else if($rondax){
 
                                           if ($total_registros) {

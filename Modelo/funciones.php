@@ -473,6 +473,34 @@ class Model{
 						$close = mysqli_close($conn);
 
 				}
+				function consultaBuscadorcodigo($agencia){
+
+					$db = new Conectar();
+					$conn = $db->conexion();		
+
+					if ($conn->connect_errno) {
+					    printf("Conexión fallida: %s\n", $conn->connect_error);
+					    exit();
+
+					}else{
+						
+
+					 $sql = "SELECT I.estado,I.estado_chk,I.id_inicio ,I.ronda, U.user, I.id_cod, R.region, A.agencia, I.fecha, Z.zona, T.totales
+					FROM inicio AS I
+					INNER JOIN usuarios AS U ON I.usuario = U.id
+					INNER JOIN region AS R ON I.region = R.id_region
+					INNER JOIN agencia AS A ON I.agencia = A.id_age
+					INNER JOIN registrototales AS T ON I.id_cod = T.code
+					INNER JOIN zona AS Z ON I.zona = Z.id_zona WHERE I.id_cod='$agencia'
+					ORDER BY I.id_inicio DESC";
+
+						$result = $conn->query($sql);				
+					}
+
+						return $result;
+						$close = mysqli_close($conn);
+
+				}
 
 
 				function consultaRonda($ronda){
@@ -542,7 +570,7 @@ class Model{
 
 					}else{
 
-					$sql = "SELECT I.estado,I.estado_chk,I.id_inicio , I.ronda,U.user, I.id_cod , R.region , A.agencia , I.fecha , Z.zona, T.totales
+				 	$sql = "SELECT I.estado,I.estado_chk,I.id_inicio , I.ronda,U.user, I.id_cod , R.region , A.agencia , I.fecha , Z.zona, T.totales
 					FROM inicio AS I
 					INNER JOIN usuarios AS U ON I.usuario = U.id
 					INNER JOIN region AS R ON I.region = R.id_region
@@ -558,6 +586,35 @@ class Model{
 						$close = mysqli_close($conn);
 
 				}
+				//mio
+				function consultaBuscadorxcodigo($agencia,$ini,$final){
+
+					$db = new Conectar();
+					$conn = $db->conexion();		
+
+					if ($conn->connect_errno) {
+					    printf("Conexión fallida: %s\n", $conn->connect_error);
+					    exit();
+
+					}else{
+
+					$sql = "SELECT I.estado,I.estado_chk,I.id_inicio ,I.ronda, U.user, I.id_cod , R.region , A.agencia , I.fecha , Z.zona, T.totales
+					FROM inicio AS I
+					INNER JOIN usuarios AS U ON I.usuario = U.id
+					INNER JOIN region AS R ON I.region = R.id_region
+					INNER JOIN agencia AS A ON I.agencia = A.id_age
+					INNER JOIN registrototales AS T ON I.id_cod = T.code
+					INNER JOIN zona AS Z ON I.zona = Z.id_zona WHERE I.id_cod='$agencia'
+					ORDER BY I.id_inicio DESC LIMIT $ini,$final";
+
+						$result = $conn->query($sql);				
+					}
+
+						return $result;
+						$close = mysqli_close($conn);
+
+				}
+				//mio-End
 				
 				function consultaBuscadorusuario($usuario){
 
@@ -673,6 +730,7 @@ class Model{
 				}
 				
 				
+				
 				function consultaBuscadorregion($agencia){
 
 					$db = new Conectar();
@@ -763,6 +821,25 @@ class Model{
 					}else{
 
 						$sql = "SELECT id_region,region from region ORDER BY region ASC";
+						$result = $conn->query($sql);				
+					}
+
+						return $result;
+						$close = mysqli_close($conn);
+
+				}
+				function consultaAutocompletexcodigo(){
+
+					$db = new Conectar();
+					$conn = $db->conexion();		
+
+					if ($conn->connect_errno) {
+					    printf("Conexión fallida: %s\n", $conn->connect_error);
+					    exit();
+
+					}else{
+
+						$sql = "SELECT id_cod from inicio WHERE ronda IN('8','9','10')";
 						$result = $conn->query($sql);				
 					}
 
