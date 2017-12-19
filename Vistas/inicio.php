@@ -14,7 +14,7 @@
                       <li><a href="interna.php?us=<?php echo $_SESSION['id'] ?>">Infraestructura Interna</a></li>
                       <li><a href="mobiliario.php?us=<?php echo $_SESSION['id'] ?>">Mobiliario / silloneria</a></li>
                       <li><a href="equipo.php?us=<?php echo $_SESSION['id'] ?>">Equipamiento</a></li>-->
-                      <li><a href="checklist.php?us=<?php echo $_SESSION['id'] ?>&rondax=9">Checklist</a></li>
+                      <li><a href="checklist.php?us=<?php echo $_SESSION['id'] ?>&rondax=10">Checklist</a></li>
                       <!--<li><a href="observaciones.php?us=<?php echo $_SESSION['id'] ?>">Observaciones</a></li>-->
                     </ul>
                   </li>

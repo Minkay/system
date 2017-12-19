@@ -1,6 +1,6 @@
 <?php
 
-//error_reporting(0);
+error_reporting(0);
 session_start();
 
 if ($_SESSION['loggedin'] == false) {
@@ -20,7 +20,7 @@ $buscaregion = $_GET["buscaregion"];
 $rondax = $_GET["rondax"];
 $us = $_GET["us"];
 //mio
-$buscarxcodigo= $_GET["buscarxcodigo"];
+//$buscarxcodigo= $_GET["buscarxcodigo"];
 
 
 if($usuario){
@@ -78,7 +78,7 @@ else if($buscaregion){
 }
 
 //mio para buscar por codigo
-else if($buscarxcodigo){
+/*else if($buscarxcodigo){
       $ni = $sel->consultaBuscadorcodigo($buscarxcodigo); 
       $registros = 20;
       $contador = 1;
@@ -94,7 +94,7 @@ else if($buscarxcodigo){
       $resultados = $sel->consultaBuscadorxcodigo($buscarxcodigo,$inicio,$registros);  
       $total_registros = mysqli_num_rows($ni); 
       $total_paginas = ceil($total_registros / $registros);
-}
+}*/
 
 
 else if($buscar){
@@ -259,7 +259,7 @@ else{
                    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count" style='width: 11%;'>
                         <div class="left"></div>
                         <div class="right">
-                            <span class="count_top"><i class="fa fa-user"></i> Antony</span>
+                            <span class="count_top"><i class="fa fa-user"></i> Angel</span>
                             <div class="count green"><?php  $niu = $sel->CountUsu("41",$rondax);
                           $fi = mysqli_num_rows($niu); echo $fi ?> </div>
                             <span class="count_bottom"><i class="green">Agencias</i> realizadas</span>
@@ -330,7 +330,7 @@ else{
          <select name="usuario" data-placeholder="Your Favorite Types of Bear" class="chosen-select-width" tabindex="10">
                                   <option value="" > Usuario</option>                                                 
                                     <option value="36" >Stephan</option>
-                                        <option value="41" >Tony</option>
+                                        <option value="41" >Angel</option>
                                         <option value="37" >Fernando</option>
                                         <option value="39" >Miguel</option>
                                        <option value="35" >Jose</option>
@@ -368,23 +368,8 @@ else{
                                   <option value="<?php echo $centros["agencia"] ?>" ><?php echo $centros["agencia"] ?></option>
                           <?php } ?>
                                  </select>
-			
-	
+				
 			</div>
-
-
-      <!--mio-->
-        <div class="form-group" style="width: 26%;">
-        
-         <select name="buscarxcodigo" data-placeholder="Your Favorite Types of Bear" class="chosen-select-width" tabindex="10">
-                                  <option value="" >Codigo </option>                          
-                                   <?php $cen = $sel->consultaAutocompletexcodigo(); while($centros = $cen->fetch_assoc()){?>                            
-                                  <option value="<?php echo $centros["id_cod"] ?>" ><?php echo $centros["id_cod"] ?></option>
-                          <?php } ?>
-                                 </select>
-       
-      </div>
-
         <input type="submit" value="BUSCAR" class="btn btn-success" style="margin: 0px;padding-left: 22px;padding-right: 30px;font-weight: bolder;">
 
 		     </form>
@@ -634,7 +619,7 @@ $fec = substr($mue["fecha"],0,10);
 
                                       }
                                       
-                                          else if($buscarxcodigo){
+                                      /*    else if($buscarxcodigo){
 
                                           if ($total_registros) {
                                              
@@ -657,7 +642,7 @@ $fec = substr($mue["fecha"],0,10);
                                               }    
                                             }
 
-                                      }
+                                      }*/
                                       
                                                                             
                                       else if($rondax){
